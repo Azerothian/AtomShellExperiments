@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title></title>
+    <body>
+    <input type="button" onclick="fireAlerts()" value="Fire alerts" />
+  </body>
+<script>
+  require("coffee-script").register();
+  require('../coffee-cache').register()
+  
+  function fireAlerts() {
+    webClass = require("./web");
+    web = new webClass();
+    web.fireAlerts();
+  }
+</script>
+
+</html>
