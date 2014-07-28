@@ -22,8 +22,10 @@
   },
   "dependencies": {
     "coffee-script": "~1.7.1",
-    "season": "~2.0.0",
+    "envify": "^1.2.1",
     "fs-plus": "~2.2.4",
-    "rimraf": "~2.2.8"
+    "react-atom-fork": "^0.10.0",
+    "rimraf": "~2.2.8",
+    "season": "~2.0.0"
   }
 }
