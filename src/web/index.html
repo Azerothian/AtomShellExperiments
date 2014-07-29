@@ -1,18 +1,17 @@
 <html>
   <head>
     <title></title>
-    <body>
-    <input type="button" onclick="fireAlerts()" value="Fire alerts" />
+    <link href="../../node_modules/jquery-ui/themes/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="../../bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="react">
+    </div>
   </body>
 <script>
   require("coffee-script").register();
   require('../coffee-cache').register()
-  
-  function fireAlerts() {
-    webClass = require("./web");
-    web = new webClass();
-    web.fireAlerts();
-  }
+  require("./boot");
 </script>
 
 </html>
