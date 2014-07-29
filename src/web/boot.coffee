@@ -3,6 +3,10 @@ React = require "react-atom-fork"
 debug = require("debug")("boot")
 {div} = React.DOM
 
+remote = require('remote')
+Menu = remote.require('menu')
+MenuItem = remote.require('menu-item')
+
 Panel = require "./react/panel"
 
 Main = React.createClass {
@@ -24,3 +28,18 @@ resizeTimeOut = undefined
 window.onresize = ->
   clearTimeout resizeTimeOut
   resizeTimeOut = setTimeout onresizeend, 100
+
+
+onQuit = ->
+  debug "da"
+  remote.require("app").quit()
+
+menu = new Menu()
+menu.append new MenuItem({ label: 'Quit', click: onQuit })
+
+
+oncontextmenu = (e) ->
+  e.preventDefault()
+  menu.popup(remote.getCurrentWindow());
+
+window.addEventListener 'contextmenu', oncontextmenu, false
