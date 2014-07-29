@@ -19,6 +19,11 @@ class Main
     @mainWindow.loadUrl "file://#{__dirname}/#{path}"
     @mainWindow.openDevTools()
     @mainWindow.show()
+
 console.log "exec main"
 main = new Main app
-win = main.loadWindow "../web/index.html", { width: 800, height: 600 }
+win = main.loadWindow "../web/index.html", {
+  width: 800
+  height: 600
+  frame: true
+}
