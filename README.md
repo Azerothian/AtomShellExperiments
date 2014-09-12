@@ -1,7 +1,4 @@
-DesktopGoodness
-===============
-
-# Howto run
+# Startup
 ```
 apm install .
 grunt install
