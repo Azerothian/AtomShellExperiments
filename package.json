@@ -21,10 +21,10 @@
     "grunt-download-atom-shell": "~0.8.2"
   },
   "dependencies": {
-    "coffee-script": "~1.7.1",
+    "coffee-script": "^1.8.0",
     "debug": "^1.0.4",
     "envify": "^1.2.1",
-    "fs-plus": "~2.2.4",
+    "fs-plus": "^2.2.6",
     "jquery": "^2.1.1",
     "jquery-ui": "^1.10.5",
     "react-atom-fork": "^0.10.0",

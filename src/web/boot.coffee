@@ -31,7 +31,6 @@ window.onresize = ->
 
 
 onQuit = ->
-  debug "da"
   remote.require("app").quit()
 
 menu = new Menu()

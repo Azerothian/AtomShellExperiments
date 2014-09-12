@@ -6,61 +6,50 @@ MenuItem = require('menu-item')
 
 debug = require("debug")("client:index")
 
-class Main
-  constructor: (@app) ->
-    @mainWindow = null
-    @initAppEvents()
-  initAppEvents: () =>
-    @app.on 'windows-all-closed', @onAllWindowsClosed
+createWindow = (path, options, initDev = false) ->
+  win = new BrowserWindow options
+  win.loadUrl "file://#{__dirname}/#{path}"
+  if initDev
+    win.openDevTools()
+  win.show()
+  return win
 
-  onAllWindowsClosed: () =>
+mainWindow = null
+
+app.on 'ready', () ->
+  require('crash-reporter').start()
+
+  app.on 'windows-all-closed', () ->
     if process.platform != 'darwin' # not sure if i like this?
-      @app.quit()
+      app.quit()
 
-  loadWindow: (path, options) =>
-    @mainWindow = new BrowserWindow options
-    @mainWindow.on "close", () ->
-      @mainWindow = null
-    @mainWindow.loadUrl "file://#{__dirname}/#{path}"
-    @mainWindow.openDevTools()
-    @mainWindow.show()
-    return @mainWindow
+  mainWindow = createWindow "../web/index.html", {
+    width: 800
+    height: 600
+    frame: true
+  }, false
 
-  createMenu: () =>
-    #@menu = new Menu()
-    data = [{
-      label: "File"
-      submenu: [{
-        label: 'Reload'
-        click: =>
-          debug "reload"
-          @mainWindow.reloadIgnoringCache()
-      }, {
-        label: 'Toggle DevTools'
-        click: =>
-          debug "toggle"
-          @mainWindow.toggleDevTools()
-      },{
-        label: 'Quit'
-        click: ->
-          debug "quit"
-          app.quit()
-      }]
+  menu = Menu.buildFromTemplate [{
+    label: "File"
+    submenu: [{
+      label: 'Reload'
+      click: ->
+        debug "reload"
+        mainWindow.reloadIgnoringCache()
+    }, {
+      label: 'Toggle DevTools'
+      click: ->
+        debug "toggle"
+        mainWindow.toggleDevTools()
+    },{
+      label: 'Quit'
+      click: ->
+        debug "quit"
+        app.quit()
     }]
+  }]
 
-    #for item in data
-    #  @menu.append new MenuItem(item)
-    @menu = Menu.buildFromTemplate data
+  Menu.setApplicationMenu menu
 
-    Menu.setApplicationMenu(@menu)
-
-
-console.log "exec main"
-
-main = new Main app
-win = main.loadWindow "../web/index.html", {
-  width: 800
-  height: 600
-  frame: true
-}
-main.createMenu()
+  mainWindow.on "close", () ->
+    mainWindow = null
